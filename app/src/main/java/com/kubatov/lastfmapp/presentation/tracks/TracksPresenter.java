@@ -1,12 +1,11 @@
 package com.kubatov.lastfmapp.presentation.tracks;
 
-import com.kubatov.lastfmapp.baseOfBase.BaseView;
 import com.kubatov.lastfmapp.model.TrackEntity;
 
 import java.util.ArrayList;
 
-public class TracksPresenter implements TracksContract.Presenter {
-    private TracksContract.View  mView;
+public class TracksPresenter implements ITracksContract.Presenter {
+    private ITracksContract.View  mView;
 
     @Override
     public void getTracks() {
@@ -14,7 +13,7 @@ public class TracksPresenter implements TracksContract.Presenter {
         trackEntities.add(new TrackEntity());
 
         if (mView !=null){
-            mView.showTracks(trackEntities);
+            mView.showTracksDetails(trackEntities);
         }
     }
 
@@ -24,13 +23,8 @@ public class TracksPresenter implements TracksContract.Presenter {
     }
 
     @Override
-    public void attachView(TracksContract.View view) {
-
-    }
-
-    @Override
-    public void attachView(BaseView baseView) {
-        mView = (TracksContract.View)baseView;
+    public void attachView(ITracksContract.View view) {
+        mView = view;
         mView.attachPresenter(this);
 
     }
@@ -38,8 +32,5 @@ public class TracksPresenter implements TracksContract.Presenter {
     @Override
     public void detachView() {
         mView = null;
-        assert false;
-        mView.finishView();
-
     }
 }

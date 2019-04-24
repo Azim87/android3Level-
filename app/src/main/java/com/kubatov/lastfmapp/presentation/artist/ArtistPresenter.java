@@ -1,12 +1,10 @@
 package com.kubatov.lastfmapp.presentation.artist;
 
-import com.kubatov.lastfmapp.baseOfBase.BaseView;
 import com.kubatov.lastfmapp.model.ArtistEntity;
-
 import java.util.ArrayList;
 
-public class ArtistPresenter implements ArtistContract.Presenter {
-    private ArtistContract.View mView;
+public class ArtistPresenter implements IArtistContract.Presenter {
+    private IArtistContract.View mView;
     @Override
     public void getArtist() {
 
@@ -20,26 +18,16 @@ public class ArtistPresenter implements ArtistContract.Presenter {
         if (mView !=null){
              mView.showArtist(artistEntities);
         }
-
     }
 
     @Override
-    public void attachView(ArtistContract.View view) {
-        mView.attachPresenter(this);
-
-    }
-
-    @Override
-    public void attachView(BaseView baseView) {
-        mView = (ArtistContract.View)baseView;
+    public void attachView(IArtistContract.View view) {
+        mView = view;
         mView.attachPresenter(this);
     }
 
     @Override
     public void detachView() {
         mView = null;
-        assert false;
-        mView.finishView();
-
     }
 }

@@ -25,5 +25,4 @@
         android:text="Did you code last night?!"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
-
 </RelativeLayout>

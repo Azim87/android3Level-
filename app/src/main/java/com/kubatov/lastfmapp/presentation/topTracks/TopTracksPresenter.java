@@ -1,12 +1,10 @@
 package com.kubatov.lastfmapp.presentation.topTracks;
 
-import com.kubatov.lastfmapp.baseOfBase.BaseView;
 import com.kubatov.lastfmapp.model.TrackEntity;
-
 import java.util.ArrayList;
 
-public class TopTracksPresenter implements TopTracksContract.Presenter {
-    private TopTracksContract.View mView;
+public class TopTracksPresenter implements ITopTracksContract.Presenter {
+    private ITopTracksContract.View mView;
 
     @Override
     public void onTrackClick(int position) {
@@ -29,21 +27,13 @@ public class TopTracksPresenter implements TopTracksContract.Presenter {
     }
 
     @Override
-    public void attachView(TopTracksContract.View view) {
+    public void attachView(ITopTracksContract.View view) {
+        mView = view;
         mView.attachPresenter(this);
-    }
-
-    @Override
-    public void attachView(BaseView baseView) {
-        mView = (TopTracksContract.View)baseView;
-        mView.attachPresenter(this);
-
     }
 
     @Override
     public void detachView() {
         mView = null;
-        assert false;
-        mView.finishView();
     }
 }

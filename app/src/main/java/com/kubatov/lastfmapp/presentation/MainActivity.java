@@ -1,4 +1,4 @@
-package com.kubatov.lastfmapp.fragment;
+package com.kubatov.lastfmapp.presentation;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,10 +9,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.kubatov.lastfmapp.R;
+import com.kubatov.lastfmapp.presentation.topArtist.TopArtistsFragment;
+import com.kubatov.lastfmapp.presentation.topTracks.TopTracksFragment;
 
 public class MainActivity extends AppCompatActivity {
+    private static int NUM_ITEMS = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,47 +29,36 @@ public class MainActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
 
     }
-
-
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        private final Context mContext;
-
-        public SectionsPagerAdapter(Context context, FragmentManager fm) {
+        public SectionsPagerAdapter(MainActivity mainActivity, FragmentManager fm) {
             super(fm);
-            mContext = context;
         }
 
         @Override
         public Fragment getItem(int position) {
-            Fragment fragment = null;
             switch (position) {
                 case 0:
-                    fragment = new FragmentOne();
-                    break;
+                    return TopTracksFragment.newInstance("Top Tracks");
                 case 1:
-                    fragment = new FragmentTwo();
-                    break;
+                    return TopArtistsFragment.newInstance("Top Artists");
             }
-            return fragment;
+            return null;
         }
-
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
                     return "Top track";
-
                 case 1:
                     return "Top artist";
             }
             return null;
         }
-
         @Override
         public int getCount() {
-            return 2;
+            return NUM_ITEMS;
         }
     }
 }

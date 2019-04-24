@@ -15,9 +15,9 @@ import com.kubatov.lastfmapp.model.ArtistEntity;
 import java.util.List;
 
 public class TopArtistsFragment extends Fragment implements ITopArtistContract.View{
+    private ITopArtistContract.Presenter mPresenter;
     private final static String ARG_PAGE_TITLE = "title";
     private String title;
-    private ITopArtistContract.Presenter mPresenter;
 
     public static TopArtistsFragment newInstance(String title){
         TopArtistsFragment artistsFragment = new TopArtistsFragment();
@@ -42,23 +42,19 @@ public class TopArtistsFragment extends Fragment implements ITopArtistContract.V
 
     @Override
     public void showArtist(List<ArtistEntity> artistEntityList) {
-
     }
 
     @Override
     public void openArtist(ArtistEntity artistEntity) {
-
     }
 
     @Override
     public void attachPresenter(ITopArtistContract.Presenter presenter) {
         mPresenter = presenter;
-
     }
 
     @Override
     public void finishView() {
         getActivity().finish();
-
     }
 }

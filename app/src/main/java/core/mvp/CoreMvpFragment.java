@@ -10,11 +10,11 @@ public class CoreMvpFragment extends Fragment
     @Override
     public void attachPresenter(ICoreMvpContract.Presenter presenter) {
         mPresenter = presenter;
+        mPresenter.attachView(this);
     }
 
     @Override
     public void finishView() {
-        mPresenter = null;
-
+        getActivity().finish();
     }
 }

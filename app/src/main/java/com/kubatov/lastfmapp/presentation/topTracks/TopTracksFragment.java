@@ -10,8 +10,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kubatov.lastfmapp.R;
+import com.kubatov.lastfmapp.model.TrackEntity;
 
-public class TopTracksFragment extends Fragment {
+import java.util.List;
+
+public class TopTracksFragment extends Fragment implements ITopTracksContract.View{
+    private ITopTracksContract.Presenter mPresenter;
     private final static String ARG_PAGE_TITLE = "title";
     private String title;
 
@@ -34,5 +38,28 @@ public class TopTracksFragment extends Fragment {
         }
         textTitle.setText(title);
         return v;
+    }
+
+    @Override
+    public void showTracks(List<TrackEntity> tracks) {
+
+    }
+
+    @Override
+    public void openTrack(TrackEntity track) {
+
+    }
+
+    @Override
+    public void attachPresenter(ITopTracksContract.Presenter presenter) {
+        mPresenter = presenter;
+        mPresenter.attachView(this);
+
+    }
+
+    @Override
+    public void finishView() {
+        mPresenter = null;
+
     }
 }

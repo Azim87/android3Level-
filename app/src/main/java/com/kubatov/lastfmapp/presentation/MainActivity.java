@@ -1,22 +1,29 @@
 package com.kubatov.lastfmapp.presentation;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kubatov.lastfmapp.R;
 import com.kubatov.lastfmapp.presentation.topArtist.TopArtistsFragment;
 import com.kubatov.lastfmapp.presentation.topTracks.TopTracksFragment;
 
+import org.w3c.dom.Text;
+
 public class MainActivity extends AppCompatActivity {
     private static int NUM_ITEMS = 2;
+    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +35,28 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
+        Toolbar toolbar = findViewById(R.id.my_awesome_toolbar);
+        setSupportActionBar(toolbar);
+
+        drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+
     }
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "Navigation drawer closed!", Toast.LENGTH_SHORT).show();
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }else {
+            super.onBackPressed();
+        }
+    }
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(MainActivity mainActivity, FragmentManager fm) {
@@ -45,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return null;
         }
+
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
@@ -56,9 +85,12 @@ public class MainActivity extends AppCompatActivity {
             }
             return null;
         }
+
         @Override
         public int getCount() {
             return NUM_ITEMS;
         }
     }
+
+
 }
